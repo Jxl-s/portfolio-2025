@@ -15,7 +15,10 @@ const translations = {
 		'ndt.position': 'Software Development Intern',
 		'ndt.dates': 'Jan 2024 - Aug 2024',
 		'ndt.description':
-			'Developed web reports and C++ desktop applications for data processing and analysis.'
+			'Developed web reports and C++ desktop applications for data processing and analysis.',
+
+		leetwrite: 'LeetWrite',
+		'leetwrite.description': 'LeetCode, but you explain code instead of writing code.'
 	},
 	fr: {
 		'montreal, canada': 'Montréal, Canada',
@@ -33,7 +36,10 @@ const translations = {
 		'ndt.position': 'Stagiaire en développement logiciel',
 		'ndt.dates': 'Jan 2024 - Août 2024',
 		'ndt.description':
-			'Développé des tableaux de bord et des applications en C++ pour analyser des données.'
+			'Développé des tableaux de bord et des applications en C++ pour analyser des données.',
+
+		leetwrite: 'LeetWrite',
+		'leetwrite.description': "LeetCode, mais vous expliquez du code au lieu d'écrire du code."
 	}
 } as const;
 
