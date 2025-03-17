@@ -43,6 +43,27 @@ const translations = {
 		'leetwrite.description_1':
 			"Remporté la 2e place à ConUHacks IX (2025), en tant qu'équipe solo.",
 		'leetwrite.description_2': "LeetCode, mais vous expliquez du code au lieu d'écrire du code."
+	},
+	cn: {
+		'montreal, canada': '加拿大蒙特利尔',
+
+		'concordia.title': '康考迪亚大学',
+		'concordia.degree': '计算机科学学士',
+		'concordia.graduation': '预计: 2026年5月',
+		'concordia.grade': 'GPA: 4.3/4.3',
+
+		'vanier.title': '范尼尔学院',
+		'vanier.degree': '计算机科学技术技术DEC',
+		'vanier.graduation': '2024年5月',
+		'vanier.grade': 'R分数: 35.0',
+
+		'ndt.position': '软件开发实习生',
+		'ndt.dates': '2024年1月 - 2024年8月',
+		'ndt.description': '为数据处理和分析开发Web报告和C++桌面应用程序。',
+
+		leetwrite: 'LeetWrite',
+		'leetwrite.description_1': '在ConUHacks IX（2025）中获得第二名，作为独立团队。',
+		'leetwrite.description_2': 'LeetCode，但您解释代码而不是编写代码。'
 	}
 } as const;
 
