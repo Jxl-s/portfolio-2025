@@ -18,7 +18,8 @@ const translations = {
 			'Developed web reports and C++ desktop applications for data processing and analysis.',
 
 		leetwrite: 'LeetWrite',
-		'leetwrite.description': 'LeetCode, but you explain code instead of writing code.'
+		'leetwrite.description_1': 'Won 2nd place at ConUHacks IX (2025), as a solo team.',
+		'leetwrite.description_2': 'LeetCode, but you explain code instead of writing code.'
 	},
 	fr: {
 		'montreal, canada': 'Montréal, Canada',
@@ -39,7 +40,9 @@ const translations = {
 			'Développé des tableaux de bord et des applications en C++ pour analyser des données.',
 
 		leetwrite: 'LeetWrite',
-		'leetwrite.description': "LeetCode, mais vous expliquez du code au lieu d'écrire du code."
+		'leetwrite.description_1':
+			"Remporté la 2e place à ConUHacks IX (2025), en tant qu'équipe solo.",
+		'leetwrite.description_2': "LeetCode, mais vous expliquez du code au lieu d'écrire du code."
 	}
 } as const;
 

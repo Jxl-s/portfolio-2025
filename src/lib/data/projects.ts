@@ -5,17 +5,22 @@ interface Project {
 	source?: string;
 
 	name: LanguageKeys;
-	description: LanguageKeys;
+	description: LanguageKeys[];
 	stack: string[];
+
+	thumbnail: string;
 }
 
 const projects: Project[] = [
 	{
 		name: 'leetwrite',
-		description: 'leetwrite.description',
+		description: ['leetwrite.description_1', 'leetwrite.description_2'],
+
 		demo: 'https://devpost.com/software/leetwrite',
 		source: 'https://github.com/Jxl-s/LeetWrite',
-		stack: ['Next.js', 'Tailwind CSS', 'Socket.IO', 'OpenAI']
+
+		stack: ['Next.js', 'Tailwind CSS', 'Socket.IO', 'OpenAI'],
+		thumbnail: '/images/projects/2025-leetwrite.webp'
 	}
 ];
 
