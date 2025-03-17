@@ -1,22 +1,23 @@
+import type { LanguageKeys } from '$lib/i18n/translations';
+
 interface Work {
 	company: string;
-	position: string;
-	dates: string;
-	location: string;
-	description: string;
 	website?: string;
+	position: LanguageKeys;
+	dates: LanguageKeys;
+	location: LanguageKeys;
+	description: LanguageKeys;
 }
 
 const workExperience: Work[] = [
 	{
 		company: 'NDT Technologies Inc.',
-		position: 'Software Development Intern',
-		dates: 'Jan 2024 - Aug 2024',
-		location: 'Montreal, Canada',
+		website: 'https://ndt.ca',
 
-		description:
-			'Developed web reports and C++ desktop applications for data processing and analysis.',
-		website: 'https://ndt.ca'
+		position: 'ndt.position',
+		dates: 'ndt.dates',
+		location: 'montreal, canada',
+		description: 'ndt.description'
 	}
 ];
 

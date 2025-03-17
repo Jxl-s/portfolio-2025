@@ -1,22 +1,24 @@
+import type { LanguageKeys } from '$lib/i18n/translations';
+
 interface Education {
-	school: string;
-	degree: string;
-	graduation: string;
-	grade: string;
+	school: LanguageKeys;
+	degree: LanguageKeys;
+	graduation: LanguageKeys;
+	grade: LanguageKeys;
 }
 
 const education: Education[] = [
 	{
-		school: 'Concordia University',
-		degree: 'Bachelor of Science in Computer Science',
-		graduation: 'Expected: May 2026',
-		grade: 'GPA: 4.3/4.3'
+		school: 'concordia.title',
+		degree: 'concordia.degree',
+		graduation: 'concordia.graduation',
+		grade: 'concordia.grade'
 	},
 	{
-		school: 'Vanier College',
-		degree: 'Technical DEC in Computer Science Technology',
-		graduation: 'May 2024',
-		grade: 'R-Score: 35.0'
+		school: 'vanier.title',
+		degree: 'vanier.degree',
+		graduation: 'vanier.graduation',
+		grade: 'vanier.grade'
 	}
 ];
 
