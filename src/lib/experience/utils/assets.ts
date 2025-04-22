@@ -1,50 +1,66 @@
-import { GLTFLoader } from 'three/examples/jsm/Addons.js';
+import { GLTFLoader, type GLTF } from 'three/examples/jsm/Addons.js';
 import { EventEmitter } from './event-emitter';
 import * as THREE from 'three';
 import { Events } from '../data/events';
 import { type Asset, AssetType } from '../data/assets';
 
+type AssetResults = {
+	[AssetType.Gltf]: GLTF;
+	[AssetType.Texture]: THREE.Texture;
+};
+
+/**
+ * Assets class to load and manage assets
+ */
 export class Assets extends EventEmitter {
+	// Items
 	private assets: Asset[];
 	private items: Record<string, unknown> = {};
-	private loaders: {
-		gltfLoader: GLTFLoader;
-		textureLoader: THREE.TextureLoader;
-	};
 
+	// Loaders
+	private gltfLoader: GLTFLoader;
+	private textureLoader: THREE.TextureLoader;
+
+	// Track progress
 	private totalCount: number;
-	private loadedCount: number = 0;
+	private loadedCount: number;
 
 	constructor(assets: Asset[]) {
 		super();
 
 		this.assets = assets;
+
+		// Setup progress
+		this.loadedCount = 0;
 		this.totalCount = this.assets.length;
 
-		this.loaders = {
-			gltfLoader: new GLTFLoader(),
-			textureLoader: new THREE.TextureLoader()
-		};
-
-		this.startLoading();
+		// Setup loaders
+		this.gltfLoader = new GLTFLoader();
+		this.textureLoader = new THREE.TextureLoader();
 	}
 
-	private startLoading() {
+	/**
+	 * Start loading all assets. Should be called once by the experience.
+	 */
+	public startLoading() {
 		for (const asset of this.assets) {
 			if (asset.type === AssetType.Gltf) {
-				this.loaders.gltfLoader.load(asset.path, (file) => {
+				this.gltfLoader.load(asset.path, (file) => {
 					this.loaded(asset, file);
 				});
 			}
 
 			if (asset.type === AssetType.Texture) {
-				this.loaders.textureLoader.load(asset.path, (file) => {
+				this.textureLoader.load(asset.path, (file) => {
 					this.loaded(asset, file);
 				});
 			}
 		}
 	}
 
+	/**
+	 * Callback when an asset is loaded
+	 */
 	private loaded(asset: Asset, file: unknown) {
 		this.items[asset.name] = file;
 		this.loadedCount++;
@@ -58,7 +74,11 @@ export class Assets extends EventEmitter {
 		}
 	}
 
-	public get(name: string) {
-		return this.items[name];
+	/**
+	 * Gets an asset by name
+	 */
+	public get<T extends AssetResults[AssetType]>(name: string): T {
+		return this.items[name] as T;
 	}
 }
+

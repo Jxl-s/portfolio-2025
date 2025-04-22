@@ -9,6 +9,9 @@ export interface Asset {
 	path: string;
 }
 
+/**
+ * List of assets to load
+ */
 export const assets: Asset[] = [
 	{
 		name: 'sceneModel',
@@ -20,4 +23,4 @@ export const assets: Asset[] = [
 		type: AssetType.Texture,
 		path: 'textures/scene.jpg'
 	}
-] as const;
+];

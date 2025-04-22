@@ -4,6 +4,9 @@ import type { Sizes } from './utils/sizes';
 import type Experience from '.';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 
+/**
+ * Camera class to handle the camera and movements
+ */
 export class Camera {
 	public instance: THREE.PerspectiveCamera;
 	public controls: OrbitControls;

@@ -29,7 +29,7 @@ class Experience {
 		this.sizes = new Sizes();
 		this.time = new Time();
 
-		// Setup renderer
+		// Setup camera, renderer, and world
 		this.camera = new Camera(this);
 		this.renderer = new Renderer(this);
 		this.world = new World(this);
@@ -37,6 +37,9 @@ class Experience {
 		// Handle callbacks
 		this.sizes.on(Events.Resize, () => this.resize());
 		this.time.on(Events.Tick, () => this.update());
+
+		// Start loading items
+		this.assets.startLoading();
 	}
 
 	private resize() {

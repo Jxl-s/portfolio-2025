@@ -3,6 +3,9 @@ import type Experience from '..';
 import { Events } from '../data/events';
 import type { GLTF } from 'three/examples/jsm/Addons.js';
 
+/**
+ * World class to handle any world objects
+ */
 export class World {
 	private experience: Experience;
 	private scene: THREE.Scene;
@@ -18,8 +21,8 @@ export class World {
 
 		this.experience.scene.add(boxMesh);
 		this.experience.assets.on(Events.AssetsReady, () => {
-			const houseModel = this.experience.assets.get('sceneModel') as GLTF;
-			const houseTexture = this.experience.assets.get('sceneTexture') as THREE.Texture;
+			const houseModel = this.experience.assets.get<GLTF>('sceneModel');
+			const houseTexture = this.experience.assets.get<THREE.Texture>('sceneTexture');
 
 			houseTexture.flipY = false;
 			houseModel.scene.traverse((child) => {

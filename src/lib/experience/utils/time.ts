@@ -1,6 +1,9 @@
 import { EventEmitter } from './event-emitter';
 import { Events } from '../data/events';
 
+/**
+ * Time class to handle time and animation frames
+ */
 export class Time extends EventEmitter {
 	public start: number;
 	public current: number;
@@ -10,6 +13,7 @@ export class Time extends EventEmitter {
 	constructor() {
 		super();
 
+		// Set initial times
 		this.start = Date.now();
 		this.current = this.start;
 

@@ -3,6 +3,9 @@ import type Experience from '.';
 import type { Sizes } from './utils/sizes';
 import type { Camera } from './camera';
 
+/**
+ * Renderer class to handle the rendering of the scene
+ */
 export class Renderer {
 	private instance: THREE.WebGLRenderer;
 	private scene: THREE.Scene;
