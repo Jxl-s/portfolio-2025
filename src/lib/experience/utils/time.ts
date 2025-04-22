@@ -1,10 +1,15 @@
-class Time {
+import { EventEmitter } from './event-emitter';
+import { Events } from './events';
+
+export class Time extends EventEmitter {
 	public start: number;
 	public current: number;
 	public elapsed = 0;
 	public delta = 16;
 
 	constructor() {
+		super();
+
 		this.start = Date.now();
 		this.current = this.start;
 
@@ -17,7 +22,7 @@ class Time {
 		this.current = currentTime;
 		this.elapsed = currentTime - this.start;
 
-		// TODO: Dispatch a tick event
+		this.emit(Events.Tick);
 		window.requestAnimationFrame(() => this.tick());
 	}
 }

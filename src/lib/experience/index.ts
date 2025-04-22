@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { Sizes } from './utils/sizes';
+import { Time } from './utils/time';
+import { Events } from './utils/events';
 
 class Experience {
 	private static instance: Experience;
@@ -15,10 +18,22 @@ class Experience {
 	private canvas: HTMLCanvasElement;
 	private scene: THREE.Scene;
 
+	private sizes: Sizes;
+	private time: Time;
+
 	private constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.scene = new THREE.Scene();
+
+		this.sizes = new Sizes();
+		this.time = new Time();
+
+		this.sizes.on(Events.Resize, () => this.resize());
+		this.time.on(Events.Tick, () => this.tick());
 	}
+
+	private resize() {}
+	private tick() {}
 }
 
 export default Experience;
