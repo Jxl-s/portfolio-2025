@@ -9,7 +9,10 @@
 <div class="flex h-dvh w-dvw items-center justify-center">
 	<div class="w-full animate-pulse text-center">
 		<span class="block text-4xl font-bold">Portfolio 2025</span>
-		<span class="block text-lg opacity-50">Coming Soon ...</span>
+		<span class="block text-lg opacity-50">Coming Soon, ignore the current page</span>
+		<span class="block text-lg opacity-50">
+			The placeholder 3D page can be found <a href="/3d" class="text-blue-400">here</a>
+		</span>
 		<div>
 			<button on:click={setLocale.bind(this, 'en')}>English</button>
 			<button on:click={setLocale.bind(this, 'fr')}>Français</button>
