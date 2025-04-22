@@ -1,10 +1,12 @@
 import * as THREE from 'three';
 import { Sizes } from './utils/sizes';
 import { Time } from './utils/time';
-import { Events } from './utils/events';
+import { Events } from './data/events';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { World } from './world';
+import { Assets } from './utils/assets';
+import { assets } from './data/assets';
 
 class Experience {
 	public canvas: HTMLCanvasElement;
@@ -16,10 +18,12 @@ class Experience {
 	public camera: Camera;
 	public renderer: Renderer;
 	public world: World;
+	public assets: Assets;
 
 	public constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.scene = new THREE.Scene();
+		this.assets = new Assets(assets);
 
 		// Setup utilities
 		this.sizes = new Sizes();

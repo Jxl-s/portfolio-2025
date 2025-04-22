@@ -1,5 +1,5 @@
 import { EventEmitter } from './event-emitter';
-import { Events } from './events';
+import { Events } from '../data/events';
 
 export class Sizes extends EventEmitter {
 	public width: number;

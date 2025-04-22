@@ -1,5 +1,5 @@
 import { EventEmitter } from './event-emitter';
-import { Events } from './events';
+import { Events } from '../data/events';
 
 export class Time extends EventEmitter {
 	public start: number;

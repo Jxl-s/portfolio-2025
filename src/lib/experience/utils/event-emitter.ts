@@ -1,4 +1,4 @@
-import { Events } from './events';
+import { Events } from '../data/events';
 
 export abstract class EventEmitter {
 	private callbacks: Record<number, Function[]> = {};
