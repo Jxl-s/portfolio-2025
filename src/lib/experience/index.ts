@@ -21,7 +21,7 @@ class Experience {
 	private sizes: Sizes;
 	private time: Time;
 
-	private constructor(canvas: HTMLCanvasElement) {
+	public constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.scene = new THREE.Scene();
 
