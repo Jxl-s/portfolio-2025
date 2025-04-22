@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import Experience from '.';
+import type Experience from '.';
 import type { Sizes } from './utils/sizes';
 import type { Camera } from './camera';
 
@@ -10,8 +10,7 @@ export class Renderer {
 	private camera: Camera;
 	private sizes: Sizes;
 
-	constructor() {
-		const experience = Experience.get();
+	constructor(experience: Experience) {
 		this.scene = experience.scene;
 		this.camera = experience.camera;
 		this.sizes = experience.sizes;
@@ -21,6 +20,8 @@ export class Renderer {
 			canvas: experience.canvas,
 			antialias: true
 		});
+
+		this.resize();
 	}
 
 	public resize() {

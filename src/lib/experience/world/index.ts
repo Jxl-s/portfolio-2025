@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import Experience from '..';
+import type Experience from '..';
 
 export class World {
 	private experience: Experience;
 	private scene: THREE.Scene;
 
-	constructor() {
-		this.experience = Experience.get();
+	constructor(experience: Experience) {
+		this.experience = experience;
 		this.scene = this.experience.scene;
 
 		// run a small test

@@ -7,17 +7,6 @@ import { Renderer } from './renderer';
 import { World } from './world';
 
 class Experience {
-	private static instance: Experience;
-	public static get(): Experience {
-		if (!Experience.instance) {
-			// Assume the canvas exists
-			const canvas = document.querySelector('canvas.webgl') as HTMLCanvasElement;
-			Experience.instance = new Experience(canvas);
-		}
-
-		return Experience.instance;
-	}
-
 	public canvas: HTMLCanvasElement;
 	public scene: THREE.Scene;
 
@@ -37,10 +26,11 @@ class Experience {
 		this.time = new Time();
 
 		// Setup renderer
-		this.camera = new Camera();
-		this.renderer = new Renderer();
-		this.world = new World();
+		this.camera = new Camera(this);
+		this.renderer = new Renderer(this);
+		this.world = new World(this);
 
+		// Handle callbacks
 		this.sizes.on(Events.Resize, () => this.resize());
 		this.time.on(Events.Tick, () => this.update());
 	}

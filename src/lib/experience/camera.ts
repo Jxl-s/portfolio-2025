@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { Sizes } from './utils/sizes';
 
-import Experience from '.';
+import type Experience from '.';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 
 export class Camera {
@@ -11,14 +11,15 @@ export class Camera {
 	private sizes: Sizes;
 	private canvas: HTMLCanvasElement;
 
-	constructor() {
+	constructor(experience: Experience) {
 		// Get fields from the experience
-		const experience = Experience.get();
 		this.sizes = experience.sizes;
 		this.canvas = experience.canvas;
 
 		// Create the camera
 		this.instance = new THREE.PerspectiveCamera(75, this.sizes.width / this.sizes.height, 0.1, 100);
+		this.instance.position.set(0, 0, 3);
+
 		this.controls = new OrbitControls(this.instance, this.canvas);
 		this.controls.enableDamping = true;
 
