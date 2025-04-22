@@ -1,21 +1,22 @@
 import * as THREE from 'three';
 
 class Experience {
-	// Handle canvas
-	public static canvas: HTMLCanvasElement;
-
-	// Singleton stuff
 	private static instance: Experience;
 	public static get(): Experience {
 		if (!Experience.instance) {
-			Experience.instance = new Experience();
+			// Assume the canvas exists
+			const canvas = document.querySelector('canvas.webgl') as HTMLCanvasElement;
+			Experience.instance = new Experience(canvas);
 		}
 
 		return Experience.instance;
 	}
 
+	private canvas: HTMLCanvasElement;
 	private scene: THREE.Scene;
-	private constructor() {
+
+	private constructor(canvas: HTMLCanvasElement) {
+		this.canvas = canvas;
 		this.scene = new THREE.Scene();
 	}
 }
