@@ -1,4 +1,4 @@
-import { EffectComposer, RenderPass } from 'three/examples/jsm/Addons.js';
+import { BloomPass, EffectComposer, RenderPass } from 'three/examples/jsm/Addons.js';
 import Experience from '.';
 import type { Sizes } from './utils/sizes';
 import * as THREE from 'three';
@@ -10,12 +10,14 @@ export class Composer {
 	private experience: Experience;
 	private camera: Camera;
 	private sizes: Sizes;
+	private renderer: THREE.WebGLRenderer;
 
 	constructor(experience: Experience, renderer: THREE.WebGLRenderer) {
 		// Load external dependencies
 		this.experience = experience;
 		this.camera = experience.camera;
 		this.sizes = experience.sizes;
+		this.renderer = renderer;
 
 		// Create effect composer
 		this.instance = new EffectComposer(renderer);

@@ -9,6 +9,7 @@ export default class House {
 		const houseModel = experience.assets.get<GLTF>('sceneModel');
 		const houseTexture = experience.assets.get<THREE.Texture>('sceneTexture');
 
+		houseTexture.colorSpace = THREE.SRGBColorSpace;
 		houseTexture.flipY = false;
 		houseModel.scene.traverse((child) => {
 			if (child instanceof THREE.Mesh) {
@@ -23,7 +24,7 @@ export default class House {
 	}
 
 	public update() {
-		this.instance.rotation.y += 0.01;
+		this.instance.rotation.y += 0.001;
 		this.instance.position.y = Math.sin(this.instance.rotation.y) * 0.5;
 	}
 }

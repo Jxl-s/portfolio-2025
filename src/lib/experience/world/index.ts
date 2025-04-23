@@ -1,18 +1,22 @@
 import type Experience from '..';
 import { Events } from '../data/events';
 import House from './House';
+import * as THREE from 'three';
 
 /**
  * World class to handle any world objects
  */
 export class World {
 	private experience: Experience;
+	private scene: THREE.Scene;
 
 	// Scene objects
 	private house?: House;
 
 	constructor(experience: Experience) {
 		this.experience = experience;
+		this.scene = experience.scene;
+
 		this.experience.assets.on(Events.AssetsReady, () => {
 			// Do something, and then that thing will start the world (loading screen)
 			this.startWorld();
