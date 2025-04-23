@@ -49,6 +49,7 @@ class Experience {
 
 	private update() {
 		this.camera.controls.update();
+		this.world.update();
 		this.renderer.update();
 	}
 }
