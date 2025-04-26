@@ -20,6 +20,9 @@ class Experience {
 	public world: World;
 	public assets: Assets;
 
+	private resizeListener: Function;
+	private tickListener: Function;
+
 	public constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.scene = new THREE.Scene();
@@ -35,11 +38,28 @@ class Experience {
 		this.world = new World(this);
 
 		// Handle callbacks
-		this.sizes.on(Events.Resize, () => this.resize());
-		this.time.on(Events.Tick, () => this.update());
+		this.resizeListener = () => this.resize();
+		this.tickListener = () => this.update();
+
+		this.sizes.on(Events.Resize, this.resizeListener);
+		this.time.on(Events.Tick, this.tickListener);
 
 		// Start loading items
 		this.assets.startLoading();
+	}
+
+	public destroy() {
+		console.log('DESTROY CALLED');
+		this.sizes.off(Events.Resize, this.resizeListener);
+		this.time.off(Events.Tick, this.tickListener);
+
+		this.assets.destroy();
+		this.sizes.destroy();
+		this.time.destroy();
+
+		this.camera.destroy();
+		this.renderer.destroy();
+		this.world.destroy();
 	}
 
 	private resize() {

@@ -10,6 +10,8 @@ export class Time extends EventEmitter {
 	public elapsed = 0;
 	public delta = 16;
 
+	private animationFrameId: number;
+
 	constructor() {
 		super();
 
@@ -17,7 +19,7 @@ export class Time extends EventEmitter {
 		this.start = Date.now();
 		this.current = this.start;
 
-		window.requestAnimationFrame(() => this.tick());
+		this.animationFrameId = window.requestAnimationFrame(() => this.tick());
 	}
 
 	private tick() {
@@ -27,6 +29,10 @@ export class Time extends EventEmitter {
 		this.elapsed = currentTime - this.start;
 
 		this.emit(Events.Tick);
-		window.requestAnimationFrame(() => this.tick());
+		this.animationFrameId = window.requestAnimationFrame(() => this.tick());
+	}
+
+	public destroy() {
+		window.cancelAnimationFrame(this.animationFrameId);
 	}
 }

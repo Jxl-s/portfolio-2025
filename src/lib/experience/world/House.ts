@@ -27,4 +27,21 @@ export default class House {
 		this.instance.rotation.y += 0.001;
 		this.instance.position.y = Math.sin(this.instance.rotation.y) * 0.5;
 	}
+
+	public destroy() {
+		for (const child of this.instance.children) {
+			if (child instanceof THREE.Mesh) {
+				child.geometry.dispose();
+				if (Array.isArray(child.material)) {
+					for (const material of child.material) {
+						material.dispose();
+					}
+				} else {
+					(child.material as THREE.Material).dispose();
+				}
+			}
+		}
+
+		this.instance.removeFromParent();
+	}
 }

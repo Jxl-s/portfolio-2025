@@ -9,6 +9,7 @@ export class Sizes extends EventEmitter {
 	public height: number;
 	public pixelRatio: number;
 
+	private resizeListener: () => void;
 	constructor() {
 		super();
 
@@ -17,13 +18,18 @@ export class Sizes extends EventEmitter {
 		this.height = window.innerHeight;
 		this.pixelRatio = Math.min(window.devicePixelRatio, 2);
 
-		window.addEventListener('resize', () => {
+		this.resizeListener = () => {
 			// Update sizes
 			this.width = window.innerWidth;
 			this.height = window.innerHeight;
 			this.pixelRatio = Math.min(window.devicePixelRatio, 2);
-
 			this.emit(Events.Resize);
-		});
+		};
+
+		window.addEventListener('resize', this.resizeListener);
+	}
+
+	public destroy() {
+		window.removeEventListener('resize', this.resizeListener);
 	}
 }

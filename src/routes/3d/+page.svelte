@@ -5,6 +5,11 @@
 	$effect(() => {
 		const experience = new Experience(webglCanvas);
 		window.experience = experience;
+
+		// Cleanup on component destroy
+		return () => {
+			experience.destroy();
+		};
 	});
 </script>
 

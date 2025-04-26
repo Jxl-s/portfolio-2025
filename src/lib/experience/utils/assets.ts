@@ -89,7 +89,6 @@ export class Assets extends EventEmitter {
 	 * Callback when progress is made
 	 */
 	private progress(asset: Asset, event: ProgressEvent) {
-		console.log(asset, event);
 		const previous = this.itemsLoading.get(asset.name) ?? 0;
 		const delta = event.loaded - previous;
 
@@ -105,5 +104,26 @@ export class Assets extends EventEmitter {
 	 */
 	public get<T extends AssetResults[AssetType]>(name: string): T {
 		return this.items.get(name) as T;
+	}
+
+	// Garbage collector might make this redundant
+	public destroy() {
+		for (const item of this.items.values()) {
+			if (item instanceof THREE.Texture) {
+				item.dispose();
+			}
+
+			if (item instanceof THREE.Group) {
+				item.traverse((child) => {
+					if (child instanceof THREE.Mesh) {
+						child.geometry.dispose();
+						child.material.dispose();
+					}
+				});
+			}
+		}
+
+		this.items.clear();
+		this.itemsLoading.clear();
 	}
 }

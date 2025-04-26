@@ -1,18 +1,7 @@
-// https://stackoverflow.com/questions/43343479/loading-textures-in-three-js-with-xhr-progress-events
 import * as THREE from 'three';
+
 export function AjaxTextureLoader() {
-	/**
-	 * Three's texture loader doesn't support onProgress events, because it uses image tags under the hood.
-	 *
-	 * A relatively simple workaround is to AJAX the file into the cache with a FileLoader, create an image from the Blob,
-	 * then extract that into a texture with a separate TextureLoader call.
-	 *
-	 * The cache is in memory, so this will work even if the server doesn't return a cache-control header.
-	 */
-
 	const cache = THREE.Cache;
-
-	// Turn on shared caching for FileLoader, ImageLoader and TextureLoader
 	cache.enabled = true;
 
 	const textureLoader = new THREE.TextureLoader();
@@ -20,33 +9,54 @@ export function AjaxTextureLoader() {
 	fileLoader.setResponseType('blob');
 
 	function load(url, onLoad, onProgress, onError) {
-		fileLoader.load(url, cacheImage, onProgress, onError);
+		// Before loading, make sure there's no bad cache entry
+		THREE.Cache.remove(url);
 
-		/**
-		 * The cache is currently storing a Blob, but we need to cast it to an Image
-		 * or else it won't work as a texture. TextureLoader won't do this automatically.
-		 */
-		function cacheImage(blob) {
-			// ObjectURLs should be released as soon as is safe, to free memory
-			const objUrl = URL.createObjectURL(blob);
-			const image = document.createElementNS('http://www.w3.org/1999/xhtml', 'img');
+		fileLoader.load(url, cacheImage, onProgress, (err) => {
+			if (onError) onError(err);
+		});
 
+		function cacheImage(response) {
+			// Validate the response is a Blob
+			if (!(response instanceof Blob)) {
+				console.error('AjaxTextureLoader Error: Expected Blob but got', response);
+				if (onError) onError(new Error('Invalid Blob response'));
+				return;
+			}
+
+			const objUrl = URL.createObjectURL(response);
+			const image = document.createElement('img');
+
+			image.style.visibility = 'hidden';
+			image.style.position = 'absolute';
+			image.style.top = '-9999px';
 			image.onload = () => {
+				// Add to THREE.Cache manually
 				cache.add(url, image);
 				URL.revokeObjectURL(objUrl);
-				document.body.removeChild(image);
+				if (document.body.contains(image)) {
+					document.body.removeChild(image);
+				}
 				loadImageAsTexture();
 			};
 
+			image.onerror = (e) => {
+				URL.revokeObjectURL(objUrl);
+				if (document.body.contains(image)) {
+					document.body.removeChild(image);
+				}
+				if (onError) onError(new Error('Failed to load image'));
+			};
+
 			image.src = objUrl;
-			image.style.visibility = 'hidden';
 			document.body.appendChild(image);
 		}
 
 		function loadImageAsTexture() {
-			textureLoader.load(url, onLoad, () => {}, onError);
+			textureLoader.load(url, onLoad, undefined, onError);
 		}
 	}
 
+	// Return the textureLoader interface but override load
 	return Object.assign({}, textureLoader, { load });
 }

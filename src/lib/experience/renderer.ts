@@ -39,4 +39,9 @@ export class Renderer {
 	public update() {
 		this.composer.render();
 	}
+
+	public destroy() {
+		this.instance.dispose();
+		this.composer.destroy();
+	}
 }

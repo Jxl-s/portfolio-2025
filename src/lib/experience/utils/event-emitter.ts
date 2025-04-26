@@ -33,11 +33,16 @@ export abstract class EventEmitter {
 	/**
 	 * Removes all callbacks from a certain event
 	 */
-	public off(event: Events, callback: Function) {
+	public off(event: Events, callback?: Function) {
 		if (!this.callbacks[event]) {
 			return;
 		}
 
-		this.callbacks[event] = this.callbacks[event].filter((cb) => cb !== callback);
+		// if there's callback, delete it, otherwise remove all
+		if (callback) {
+			this.callbacks[event] = this.callbacks[event].filter((cb) => cb !== callback);
+		} else {
+			delete this.callbacks[event];
+		}
 	}
 }

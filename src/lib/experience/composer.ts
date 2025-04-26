@@ -38,4 +38,12 @@ export class Composer {
 	public render() {
 		this.instance.render();
 	}
+
+	public destroy() {
+		for (const pass of this.instance.passes) {
+			pass.dispose?.();
+		}
+
+		// Delete all render targets if necessary
+	}
 }

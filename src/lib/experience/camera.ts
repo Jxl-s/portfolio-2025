@@ -11,11 +11,13 @@ export class Camera {
 	public instance: THREE.PerspectiveCamera;
 	public controls: OrbitControls;
 
+	private scene: THREE.Scene;
 	private sizes: Sizes;
 	private canvas: HTMLCanvasElement;
 
 	constructor(experience: Experience) {
 		// Get fields from the experience
+		this.scene = experience.scene;
 		this.sizes = experience.sizes;
 		this.canvas = experience.canvas;
 
@@ -32,5 +34,10 @@ export class Camera {
 	public resize() {
 		this.instance.aspect = this.sizes.width / this.sizes.height;
 		this.instance.updateProjectionMatrix();
+	}
+
+	public destroy() {
+		this.controls.dispose();
+		this.scene.remove(this.instance);
 	}
 }
