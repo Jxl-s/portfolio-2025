@@ -3,5 +3,6 @@ export enum Events {
 	Tick,
 
 	AssetLoaded,
+	AssetProgress,
 	AssetsReady
 }

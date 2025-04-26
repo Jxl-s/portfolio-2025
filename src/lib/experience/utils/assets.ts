@@ -3,6 +3,7 @@ import { EventEmitter } from './event-emitter';
 import * as THREE from 'three';
 import { Events } from '../data/events';
 import { type Asset, AssetType } from '../data/assets';
+import { AjaxTextureLoader } from './ajax-texture-loader';
 
 type AssetResults = {
 	[AssetType.Gltf]: GLTF;
@@ -15,13 +16,16 @@ type AssetResults = {
 export class Assets extends EventEmitter {
 	// Items
 	private assets: Asset[];
-	private items: Record<string, unknown> = {};
+	private items: Map<string, unknown> = new Map();
+	private itemsLoading: Map<string, number> = new Map();
 
 	// Loaders
 	private gltfLoader: GLTFLoader;
 	private textureLoader: THREE.TextureLoader;
 
 	// Track progress
+	private loadedBytes: number;
+	private totalBytes: number;
 	private totalCount: number;
 	private loadedCount: number;
 
@@ -30,13 +34,16 @@ export class Assets extends EventEmitter {
 
 		this.assets = assets;
 
+		this.loadedBytes = 0;
+		this.totalBytes = assets.reduce((total, asset) => total + asset.bytes, 0);
+
 		// Setup progress
 		this.loadedCount = 0;
 		this.totalCount = this.assets.length;
 
 		// Setup loaders
 		this.gltfLoader = new GLTFLoader();
-		this.textureLoader = new THREE.TextureLoader();
+		this.textureLoader = AjaxTextureLoader();
 	}
 
 	/**
@@ -45,15 +52,19 @@ export class Assets extends EventEmitter {
 	public startLoading() {
 		for (const asset of this.assets) {
 			if (asset.type === AssetType.Gltf) {
-				this.gltfLoader.load(asset.path, (file) => {
-					this.loaded(asset, file);
-				});
+				this.gltfLoader.load(
+					asset.path,
+					(file) => this.loaded(asset, file),
+					(event) => this.progress(asset, event)
+				);
 			}
 
 			if (asset.type === AssetType.Texture) {
-				this.textureLoader.load(asset.path, (file) => {
-					this.loaded(asset, file);
-				});
+				this.textureLoader.load(
+					asset.path,
+					(file) => this.loaded(asset, file),
+					(event) => this.progress(asset, event)
+				);
 			}
 		}
 	}
@@ -62,7 +73,7 @@ export class Assets extends EventEmitter {
 	 * Callback when an asset is loaded
 	 */
 	private loaded(asset: Asset, file: unknown) {
-		this.items[asset.name] = file;
+		this.items.set(asset.name, file);
 		this.loadedCount++;
 
 		this.emit(Events.AssetLoaded, {
@@ -75,10 +86,24 @@ export class Assets extends EventEmitter {
 	}
 
 	/**
+	 * Callback when progress is made
+	 */
+	private progress(asset: Asset, event: ProgressEvent) {
+		console.log(asset, event);
+		const previous = this.itemsLoading.get(asset.name) ?? 0;
+		const delta = event.loaded - previous;
+
+		this.itemsLoading.set(asset.name, event.loaded);
+		this.loadedBytes += delta;
+
+		// Dispatch an update for the progress
+		this.emit(Events.AssetProgress, this.loadedBytes, this.totalBytes);
+	}
+
+	/**
 	 * Gets an asset by name
 	 */
 	public get<T extends AssetResults[AssetType]>(name: string): T {
-		return this.items[name] as T;
+		return this.items.get(name) as T;
 	}
 }
-

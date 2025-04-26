@@ -17,6 +17,10 @@ export class World {
 		this.experience = experience;
 		this.scene = experience.scene;
 
+		this.experience.assets.on(Events.AssetProgress, (loadedBytes: number, totalBytes: number) => {
+			console.log(loadedBytes, totalBytes);
+		});
+
 		this.experience.assets.on(Events.AssetsReady, () => {
 			// Do something, and then that thing will start the world (loading screen)
 			this.startWorld();
