@@ -22,7 +22,7 @@ export class World {
 		this.scene = experience.scene;
 
 		this.progressListener = (loadedBytes: number, totalBytes: number) => {
-			console.log(loadedBytes, totalBytes);
+			//console.log(loadedBytes, totalBytes);
 		};
 
 		this.readyListener = () => {

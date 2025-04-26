@@ -49,7 +49,6 @@ class Experience {
 	}
 
 	public destroy() {
-		console.log('DESTROY CALLED');
 		this.sizes.off(Events.Resize, this.resizeListener);
 		this.time.off(Events.Tick, this.tickListener);
 
