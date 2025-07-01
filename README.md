@@ -9,3 +9,9 @@ My new portfolio for 2025, coming soon. Here will be the changes:
 - 3D section should make more sense (2024 one was so random lol, gotta plan it better with a better theme)
     - (i was rushing on making a portfolio website in 2024, no rush this year ...)
 - Will include blender file in the repo
+
+Theme:
+
+- Colors palette
+
+<img src="assets/palette.png" />
