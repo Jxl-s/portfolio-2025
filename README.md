@@ -15,6 +15,7 @@ some brainstorming (anything tat comes to my head)
 - about me, skills, education + experience merged together, competitions (with pictures), projects (make it more clean), contact (also add a calendly link now)
 - add some animated elements on the scene, try to keep lighting consistent
 - add boba, matcha somewhere, dubai chocolate, labubus, feminist literature books, ... maximize being performative (its funny)
+    - unless the funny dies before i do make it
 
 Theme:
 
