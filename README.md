@@ -1,6 +1,8 @@
+(NOOO IT'S 2026 NOW AND I DIDNT EVEN START WORKING ON TS 😭)
+
 # Portfolio 2025
 
-this is a work in progress
+this is a work in progress 
 
 My new portfolio for 2025, coming soon. Here will be the changes:
 
